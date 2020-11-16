@@ -1,0 +1,8 @@
+{
+ "first_name": "QUE TAL",
+ "last_name": "BUENAS",
+ "email": "t@test.com",
+ "vehicles": [
+ {"registration_plate": "ZYX 123"},
+ {"registration_plate": "CBA 456"}]
+}
