@@ -8,7 +8,7 @@ from dev.serializers import Room_ClimateSerializer, PersonVehicleSerializer
 # Create your views here.
 
 def index(request):
-	climate = Room_Climate.objects.order_by('-time')
+	climate = Room_Climate.objects.order_by('-time')[:80]
 	context = {'climate': climate}
 	return render(request, 'dev/index.html', context)
 
