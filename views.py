@@ -5,6 +5,8 @@ from dev.models import Room_Climate, Share, Share_Movement
 from dev.serializers import Room_ClimateSerializer
 #from dev.serializers import PersonVehicleSerializer
 
+from smarthome.passwords import *
+
 from alpha_vantage.timeseries import TimeSeries
 import datetime
 import pandas as pd
@@ -36,7 +38,7 @@ def share(request):
 
 def share_detail(request, share):
 	shares = Share.objects.order_by('id')
-	ts = TimeSeries(key = 'TJ0VXVFQ9JBLWAUF', output_format='pandas')
+	ts = TimeSeries(key = alpha_vantage_key, output_format='pandas')
 	#share, metadata=ts.get_daily('WDI.DE', outputsize='compact')
 	share_detail, metadata=ts.get_daily(share, outputsize='compact')
 	share_detail.columns = ['open','high','low','close','volume']
