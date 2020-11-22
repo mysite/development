@@ -3,9 +3,9 @@
 {% block menu %}
   <ul class="nav flex-column">
     <li class="nav-item">
-      <a class="nav-link active" href="/">
+      <a class="nav-link" href="/">
         <span data-feather="home"></span>
-        Home<span class="sr-only">(current)</span>
+        Home
       </a>
     </li>
     <li class="nav-item">
@@ -15,66 +15,41 @@
       </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="/aktien/">
+      <a class="nav-link active" href="/aktien/">
         <span data-feather="shopping-cart"></span>
-        Aktien
+        Aktien<span class="sr-only">(current)</span>
       </a>
     </li>
-    <!--<li class="nav-item">
-      <a class="nav-link" href="#">
-        <span data-feather="users"></span>
-        XXX
-      </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="#">
-        <span data-feather="bar-chart-2"></span>
-        XXX
-      </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="#">
-        <span data-feather="layers"></span>
-        XXX
-      </a>
-    </li>
-  -->
   </ul>
 {% endblock menu %}
 
 {% block submenu %}
   <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-    <span>User</span>
-    <a class="d-flex align-items-center text-muted" href="#" aria-label="Add a new report">
+    <span>Übersicht</span>
+    <a class="d-flex align-items-center text-muted" href="/admin/dev/share/add/" aria-label="Add a new report">
       <span data-feather="plus-circle"></span>
     </a>
   </h6>
   <ul class="nav flex-column mb-2">
     <li class="nav-item">
-      <a class="nav-link" href="#">
+      <a class="nav-link" href="/portfolio/">
         <span data-feather="file-text"></span>
-        Verena
+        Portfolio
       </a>
     </li>
-    <li class="nav-item">
-      <a class="nav-link" href="#">
+    {%load static %}
+    {% if shares %}
+    {% for share in shares %}
+      <li class="nav-item">
+        <a class="nav-link" href="/aktien/{{share.share_id}}">
         <span data-feather="file-text"></span>
-        Fabian
-      </a>
-    </li>
-    <!--<li class="nav-item">
-      <a class="nav-link" href="#">
-        <span data-feather="file-text"></span>
-        XXX
-      </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="#">
-        <span data-feather="file-text"></span>
-        XXX
-      </a>
-    </li>
-  -->
+        {{share.share_name}}
+        </a>
+      </li>
+    {% endfor %}
+    {% else %}
+    No Information
+    {% endif %}
   </ul>
 {% endblock submenu%}
 
