@@ -41,7 +41,8 @@ def share_detail(request, share):
 	ts = TimeSeries(key = alpha_vantage_key, output_format='pandas')
 	#share, metadata=ts.get_daily('WDI.DE', outputsize='compact')
 	share_detail, metadata=ts.get_daily(share, outputsize='compact')
-	share_detail.columns = ['open','high','low','close','volume']
+	share_detail = share_detail.sort_index(ascending=0)
+	share_detail = share_detail.rename(columns={'1. open':'open','2. high':'high','3. low':'low','4. close':'close','5. volume':'volume'})
 	json_records = share_detail.reset_index().astype(str).to_json(orient = "records", date_format = "iso")
 	data = []
 	data = json.loads(json_records)
@@ -55,6 +56,7 @@ def portfolio(request):
 	share_entries= []
 	for movement in movements:
 		share, metadata=ts.get_daily(movement.share_id, outputsize='compact')
+		share = share.sort_index(ascending=0)
 		share_entrie = {}
 		share_entrie['name'] = movement.share_id
 		share_entrie['profit'] = round((share['4. close'].iloc[0]- movement.prize)*movement.quantity*movement.exchange_rate,2)
